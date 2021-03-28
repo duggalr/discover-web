@@ -1,30 +1,41 @@
 
 A: (<— starting here...) 
-- “organizing the de-organized web; so much great information but it is so hard to find” (both from passive search and active discovery method) 
+- “organizing the de-organized web; so much great information but it is so hard to find” 
+  (both from passive search and active discovery method) 
 
-- An AI that automatically tracks stuff that you like, whether it be blogs, etc. and starts recommending you articles from those sites, or similar domains/people 
-    - ^ A lot of great information on the web but at the moment, I need to actively find it; there has to exist an AI that finds information for me, based on my search history, daily browsing, bookmarks, etc. 
-        - YT recommends videos (although I want to build a better personalized recommendation engine) 
-            - ^ Cold start is a serious problem 
+- An AI that automatically tracks stuff that you like, whether it be blogs, etc. and starts recommending you articles from those sites, 
+or similar domains/people 
+  - ^ A lot of great information on the web but at the moment, I need to actively find it; there has to exist an AI that finds 
+    information for me, based on my search history, daily browsing, bookmarks, etc. 
+      - YT recommends videos (although I want to build a better personalized recommendation engine) 
+        - ^ Cold start is a serious problem 
 
 - Many additional features can be added beyond the above: 
-    - Entity-linking people with all their information on the web
-    - QA on documents, summarization, organization via topics/categories, can provide abstractive overviews of current trends in various topics 
-        - Programming document QA-assistant (can even build one on top of stack overflow, other qa sites) <— Can speed up programming 10x 
-            - Github repo assistant 
-            - ^ This would be extremely helpful for the macOS documentation 
+  - Entity-linking people with all their information on the web
+  - QA on documents, summarization, organization via topics/categories, can provide abstractive overviews of current trends in 
+  various topics 
+    - Programming document QA-assistant (can even build one on top of stack overflow, other qa sites) <— Can speed up programming 10x 
+      - Github repo assistant 
+      - ^ This would be extremely helpful for the macOS documentation 
 
 
 Possible approach: 
 	- A browser extension that reads your history and learns what topics/content/websites you are interested
-		- The browser extension can first just show you similar sites to the current one you are reading through the web-browser (entity-linking and other features can be added later...)
-			- The extension will also have a link to a webapp which will show you more sites/content you might be interested in; (it can also have notifications to show you new artciels on sites you visit frequently; <-- can have a 'follow' for a specific domain)
+		- The browser extension can first just show you similar sites to the current one you are reading through the web-browser 
+        (entity-linking and other features can be added later...)
+      - The extension will also have a link to a webapp which will show you more sites/content you might be interested in; 
+            (it can also have notifications to show you new artciels on sites you visit frequently; <-- can have a 'follow' for a 
+            specific domain)
 
 
 - Start first with just a browser that will show you similar sites to the current one you are one
 	- Leverage my browsing history as a way to scrap the web 
-		- we need to be smart with scraping the web... (have an AI that scrapes selectively, possibly visually/quant on what types of sites you like to spend most time on)
-			
+		- we need to be smart with scraping the web... (have an AI that scrapes selectively, possibly visually/quant on what types of 
+        sites you like to spend most time on)
+      - Then from those set of sites (set will continually grow), we can start selecting similar content 
+          ^ we need to be careful on how to compare different types of content together (ie. open-source project with article, etc.)
+
+
 
 
 
