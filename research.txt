@@ -2,7 +2,6 @@
 Question we are focusing on: 
   - How to create methods for AI to capture a deeper understanding of text?
 
-
 Human perception or rather, humans learn to ignore vast majority of things and focus only on what is relevant at the moment 
   - This may be a byproduct due to natures limitation in storage capacity
     - However, it may also be an advantage for thinking, producing insight because if everything was constantly encoding in the brian, 
@@ -20,7 +19,8 @@ PFC? - BPL? Modules?
 
 - How would the cell-assemblies be formed? (Brain computation as cell assemblies paper)
   - ie. the AI makes a mistake, how would it learn to not make that same mistake next time? 
-  ^ Cell-assemblies are attractive since they can persisted reverbatory activity (continued activity when the stimulus isn't present)
+  ^ Cell-assemblies are attractive since they can represent persisted reverbatory activity (continued thought when the stimulus isn't present)
+    - Interfacilitation between wake/sleep and cell-assemblies?
 
 ability to have self-awareness (important for deeper understanding, efficient learning, learn drive)
 
@@ -29,24 +29,17 @@ ability to have self-awareness (important for deeper understanding, efficient le
     - ^ IQ tests are testing for this (much of scientific research is this)
   - ^Clearly this is happening in the brain from birth, before "meta-cognition"; 
     - Generalizations in DNN's form via combinations of different inputs converging into some subset of neurons (multimodal neurons)
+    - How do these generalizations form via cell-assemblies and how can one explain reasoning models?
+      - How do we explain how arthimetic/logic/reasoning, etc. is learned? 
+        - Clearly this occurs to some degree in DNN's although I am not sure if this is a byproduct of interpolation 
+        (just Autoassociative nets; If we are going along with this assumption, then why would we need cell-assemblies?)
+          - Maybe it's interfacilations with the PFC that allow for more foundational (thinking)-models to form? 
+            *TODO: Read Roll's paper on PFC 
 
-How do we explain how arthimetic/logic/reasoning, etc. is learned? 
-  - Clearly this occurs to some degree in DNN's although I am not sure if this is a byproduct of interpolation (just Autoassociative nets; 
-  If we are going along with this assumption, then why would we need cell-assemblies?)
-    - Maybe it's interfacilations with the PFC that allow for more foundational (thinking)-models to form? 
-      *TODO: Read Roll's paper on PFC 
 
 
 Interesting Resources: 
 - Language Learning and Program Synthesis: 
   - https://sites.google.com/view/anshula-research-blog/entries/language-learning-and-program-synthesis 
-
-
-At the moment: 
-  - Spending time thinking/learning about DNN's as GBF and autoassociative networks 
-    - Relating abstractively to learning & intelligence
-
-
-
 
 

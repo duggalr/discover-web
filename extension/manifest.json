@@ -1,0 +1,15 @@
+{
+  "name": "Personal Extension",
+  "description": "nice",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["history", "bookmarks"],
+  "action": {
+    "default_popup": "index.html"
+  }
+  
+}
+

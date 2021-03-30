@@ -14,7 +14,15 @@ or similar articles/domains/people ('discover an interesting website you never k
   - Entity-linking people with all their information on the web (recommendation of people/personal-websites, twitter profiles, etc.)
   - QA on documents, summarization, organization via topics/categories, can provide abstractive overviews of current trends in 
   various topics (to help with information overload problem)
-    
+
+
+
+^ Domain specificity? 
+  - let's start with the generalized approach; 
+    - we will probably need to classify by types but no need to premature optimize/think about right now
+      - the types will be very useful in specific domain search (ie. only give 'github repos' for following query)
+
+
 
 Possible approach: 
   - Start with a browser extension that will read my browsing history/bookmarks
@@ -26,8 +34,12 @@ Possible approach:
             the AI will send notifications when a new one is posted (can recommend you other blogs as well)
 
 
+merger between global & personalized pagerank?
+  - how effective would this be? we have the attributes from the extension
+  https://developer.chrome.com/docs/extensions/reference/history/#type-TransitionType
 
-
-
+Starting with just the Bookmarks extension: (like instaapper; but this can also help us learn sites that are important for the end-user, etc.
+- Being able to highlight arbitrary text through an extension and on the dashboard, it saves the text along with the link 
+    - Organizes the text as children of the links
 
 
