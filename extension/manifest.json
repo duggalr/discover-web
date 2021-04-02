@@ -6,7 +6,10 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["history", "bookmarks"],
+  "permissions": ["activeTab", "tabs", "scripting",  "contextMenus", "storage", "history", "bookmarks"],
+  "host_permissions": [
+    "http://*/*", "https://*/*"
+  ],
   "action": {
     "default_popup": "index.html"
   }

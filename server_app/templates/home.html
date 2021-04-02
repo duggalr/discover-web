@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+
+  <body>
+    <h1>personal-extension dashboard</h1>
+
+    <h3>Saved Bookmarks:</h3>
+
+    {% for k in savedText %}
+      {% for d in savedText[k] %}
+      <p>{{ d.hostname }}</p>
+      <li><a href='{{ d.url }}'>{{ d.selected_text }}</a></li>
+      {% endfor %}
+    {% endfor %}
+
+  </body>
+  
+    
+
+</html>
+
+

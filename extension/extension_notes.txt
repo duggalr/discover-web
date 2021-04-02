@@ -1,0 +1,18 @@
+
+Notes: (understanding the chrome extension environment)
+  - Service Workers (background.js is a service worker)
+    - A service worker is a script that your browser runs in the background, separate from a web page, 
+    opening the door to features that don't need a web page or user interaction.
+      - This is the technology that enables native-like experiences such as push notifications, rich offline support, 
+      background sync, and "Add to Home Screen" on the open web
+
+    - service workers can't access the DOM directly 
+      - thus, use messages if you want to communicate with a content script that can then manipulate the DOM
+    - service workers are terminated when not in use and restarted when needed (thus, don't rely on them for global state; 
+    use indexedDB, etc. instead)
+      - ie. when they are done calling a chrome API, etc. 
+
+
+
+
+

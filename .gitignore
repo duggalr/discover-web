@@ -1,1 +1,4 @@
-extension/main.db
+main.db
+server_app/__pycache__
+to_be_used
+.vscode

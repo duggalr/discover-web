@@ -16,30 +16,51 @@ or similar articles/domains/people ('discover an interesting website you never k
   various topics (to help with information overload problem)
 
 
-
 ^ Domain specificity? 
   - let's start with the generalized approach; 
     - we will probably need to classify by types but no need to premature optimize/think about right now
       - the types will be very useful in specific domain search (ie. only give 'github repos' for following query)
+ 
+
+Would all these features be part of one extension? (not sure but many would I think 'come back' to a main dashboard)
+- First thing I will do is build a quick bookmark feature
+  - Extension will save my highlighted text along with domain
+
+(potential but just focus on above; take everything below with a grain of salt) 
+- Next thing, add a follow feature for sites; the extension/dashboard will show notifications when new content has been posted on the site
+  - ie. extension will have a button that says 'follow site' 
+    ^ need to most likely check the type of website before allowing this 
+- Third thing is, scraping the web from our sites (leveraging history/bookmarks, etc.)
+  - Now this web crawler should be 'intelligent' to some degree; ** Web-scraper should be intelligent too! 
+    - ^ since we are limited in space, should have prioritization-levels on what we should scrape, etc.         
+  - Scraper will allow discovery of new sites / content (recommendation-engine)
+    - based on my history, bookmarks (including above), etc.; 
+  - Can possibly use this to build a more intelligent/personalized retrieval-engine as well 
+    - merger between global & personalized pagerank?
+      - how effective would this be? we have the attributes from the extension
+      https://developer.chrome.com/docs/extensions/reference/history/#type-TransitionType
+
+
+  ^ On our dashboard, for other similar side projects we work on (if they are extensions), the dashboard can have that extensions column 
+  showing it...
+
+^ as mentioned above, this extension won't just be for bookmarks, I think that connects to the abstractive better information 
+discovery mechanisms & organization/presentation (latter is a bit less than the former)
+
+^ feature for BM is to add automatic grouping by AI 
+
+
+An AI assistant that can send notifications is a first ‘good’ step as right now, many rely on emails and emails are obviously a sub-optimal approach 
+
+
+(Abstractive thoughts:)
+- It will be like a youtube dashboard but for the whole web (very personalized to you)
+  
 
 
 
-Possible approach: 
-  - Start with a browser extension that will read my browsing history/bookmarks
-    - Use this browsing history for: 
-      - Learning the types of content I like and types of websites I spend a lot of time on 
-        - Scrape the web accordingly to above... (this set will be adaptive and continue to grow)
-          - Then from there, have a webapp that starts to recommend content 
-            - Also have a 'subscribe/follow' feature for blogs (need to restrict type) that I really enjoy reading, 
-            the AI will send notifications when a new one is posted (can recommend you other blogs as well)
-
-
-merger between global & personalized pagerank?
-  - how effective would this be? we have the attributes from the extension
-  https://developer.chrome.com/docs/extensions/reference/history/#type-TransitionType
-
-Starting with just the Bookmarks extension: (like instaapper; but this can also help us learn sites that are important for the end-user, etc.
-- Being able to highlight arbitrary text through an extension and on the dashboard, it saves the text along with the link 
-    - Organizes the text as children of the links
+TODO: 
+  - Clean the above up 
+  - When I click the link from my saved snippet, it should go back to exact location of the page
 
 
