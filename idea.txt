@@ -14,23 +14,28 @@ or similar articles/domains/people ('discover an interesting website you never k
   - Entity-linking people with all their information on the web (recommendation of people/personal-websites, twitter profiles, etc.)
   - QA on documents, summarization, organization via topics/categories, can provide abstractive overviews of current trends in 
   various topics (to help with information overload problem)
-
-
-^ Domain specificity? 
-  - let's start with the generalized approach; 
-    - we will probably need to classify by types but no need to premature optimize/think about right now
-      - the types will be very useful in specific domain search (ie. only give 'github repos' for following query)
  
+(Abstractive thoughts:)
+  - It will be like a youtube dashboard but for the whole web (very personalized to you)
+  
 
-Would all these features be part of one extension? (not sure but many would I think 'come back' to a main dashboard)
-- First thing I will do is build a quick bookmark feature
-  - Extension will save my highlighted text along with domain
+TODO: For Bookmark Extension
+(progress along as we use it more as this will constantly adapt...)
+  - Need to add a toggle display for urls or maybe a different UI to better deal with all the urls
+    - ^Very soon, there will be a lot here and just having a ton of text as list might not be ideal (will need to experiment)
 
-(potential but just focus on above; take everything below with a grain of salt) 
+Possible next steps: (take everything below with a grain of salt) 
 - Next thing, add a follow feature for sites; the extension/dashboard will show notifications when new content has been posted on the site
   - ie. extension will have a button that says 'follow site' 
     ^ need to most likely check the type of website before allowing this 
-- Third thing is, scraping the web from our sites (leveraging history/bookmarks, etc.)
+  (An AI assistant that can send notifications is a first ‘good’ step as right now, many rely on emails and emails are 
+  obviously a sub-optimal approach)
+
+  - Good digression: 
+    - Build a picture extractors (bike pictures) and showing the prices (& having notifications; 
+    these same notification-functionality can be abstracted to blogs, etc.); instead of me constantly checking 
+
+- Third thing is, scraping the web from our sites (leveraging history/bookmarks & above code...)
   - Now this web crawler should be 'intelligent' to some degree; ** Web-scraper should be intelligent too! 
     - ^ since we are limited in space, should have prioritization-levels on what we should scrape, etc.         
   - Scraper will allow discovery of new sites / content (recommendation-engine)
@@ -41,21 +46,11 @@ Would all these features be part of one extension? (not sure but many would I th
       https://developer.chrome.com/docs/extensions/reference/history/#type-TransitionType
 
 
-  ^ On our dashboard, for other similar side projects we work on (if they are extensions), the dashboard can have that extensions column 
-  showing it...
-
-^ as mentioned above, this extension won't just be for bookmarks, I think that connects to the abstractive better information 
+^ as mentioned above, this extension won't just be for bookmarks, I think it connects to the abstractive better information 
 discovery mechanisms & organization/presentation (latter is a bit less than the former)
-
-^ feature for BM is to add automatic grouping by AI 
-
-
-An AI assistant that can send notifications is a first ‘good’ step as right now, many rely on emails and emails are obviously a sub-optimal approach 
+  - having an extension column showing them there (possibly leveraging a similar PT-model?) would be interesting
 
 
-(Abstractive thoughts:)
-- It will be like a youtube dashboard but for the whole web (very personalized to you)
-  
 
 
 

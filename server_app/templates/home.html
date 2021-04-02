@@ -11,7 +11,7 @@
     <h4>&nbsp;{{ k }}</h4>
     {% for d in savedText[k] %}          
       <li>
-        <a href='{{ d.url }}'>{{ d.title }}</a>
+        <a href='{{ d.url }}'>{{ d.title }}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/delete_snippet/{{ d.id }}">Delete</a>
         <ul>
           <li><p>{{ d.selected_text }}</p></li>
         </ul>

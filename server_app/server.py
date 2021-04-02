@@ -32,20 +32,6 @@ def teardown_request(exception):
   if db is not None:
     db.close()
 
-def check_admin(f):  # TODO: wireshark adjusting sessions? need to change authentication approach 
-  @wraps(f)
-  def wrap(*args, **kwargs):
-    if 'admin' not in session:
-      return redirect(url_for('home'))
-
-    if session['admin'] is not True:
-      return redirect(url_for('home'))
-
-    return f(*args, **kwargs)
-  
-  return wrap
-
-
 def format_posts(posts):
   rv = []
   for post in posts:
@@ -67,7 +53,6 @@ def save_text():
   g.db.commit()
   return jsonify({'success': 'success'})
 
-
 @app.route('/', methods=["GET"])
 def home():
   sql_str = 'select * from savedText'
@@ -86,10 +71,17 @@ def home():
     first_sentence = selected_text.split('. ')[0]  # obviously not 'bulletproof'; will adjust as errors come about    
     url = url + '#:~:text=' + first_sentence
 
-    li.append({'title': val['title'], 'url': url, 'selected_text': selected_text})
+    li.append({'id': val['id'], 'title': val['title'], 'url': url, 'selected_text': selected_text})
     di[val['hostname']] = li 
 
   return render_template('home.html', savedText=di)
+
+@app.route('/delete_snippet/<int:post_id>', methods=["GET"])
+def delete_snippet(post_id):
+  g.db.execute('delete from savedText where id = ?' , (post_id,) )
+  g.db.commit()
+  return redirect(url_for('home'))
+
 
 
 if __name__ == '__main__':
@@ -143,4 +135,5 @@ if __name__ == '__main__':
 #   # last_visited_time = request.json['lastVisitedTime']
 #   # visit_details = request.json['visitDetails']
 #   return jsonify({'success': 'success'})
+
 
