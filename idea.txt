@@ -59,8 +59,4 @@ An AI assistant that can send notifications is a first ‘good’ step as right 
 
 
 
-TODO: 
-  - Clean the above up 
-  - When I click the link from my saved snippet, it should go back to exact location of the page
-
 

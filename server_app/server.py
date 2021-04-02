@@ -77,10 +77,16 @@ def home():
   for val in rv:
     di[val['hostname']] = []
 
-  # TODO: should we organize by titles from the same hostname sites? (ie. different saved snippets from same hostname site?)
   for val in rv:
-    li = di[val['hostname']]
-    li.append({'title': val['title'], 'url': val['url']})
+    li = di[val['hostname']]  
+    # creating text fragment version (note: works only on chrome)
+    url = val['url']
+    selected_text = val['selected_text']
+
+    first_sentence = selected_text.split('. ')[0]  # obviously not 'bulletproof'; will adjust as errors come about    
+    url = url + '#:~:text=' + first_sentence
+
+    li.append({'title': val['title'], 'url': url, 'selected_text': selected_text})
     di[val['hostname']] = li 
 
   return render_template('home.html', savedText=di)
@@ -95,7 +101,8 @@ if __name__ == '__main__':
 # flask run
 # flask run -h localhost -p 8000
 
-## design of database; #TODO: this will constantly change as we build out more features, etc. 
+# TODO: 
+## design of database; # this will constantly change as we build out more features, etc. 
 
 # CREATE TABLE savedText( id INTEGER PRIMARY KEY AUTOINCREMENT, url TEXT, hostname TEXT, title TEXT, selected_text TEXT);
 

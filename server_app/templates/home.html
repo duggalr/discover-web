@@ -4,16 +4,22 @@
   </head>
 
   <body>
-    <h1>personal-extension dashboard</h1>
 
-    <h3>Saved Bookmarks:</h3>
+    <h2>Saved Bookmarks:</h2>
 
     {% for k in savedText %}
-      {% for d in savedText[k] %}
-      <p>{{ d.hostname }}</p>
-      <li><a href='{{ d.url }}'>{{ d.selected_text }}</a></li>
+    <h4>&nbsp;{{ k }}</h4>
+    {% for d in savedText[k] %}          
+      <li>
+        <a href='{{ d.url }}'>{{ d.title }}</a>
+        <ul>
+          <li><p>{{ d.selected_text }}</p></li>
+        </ul>
+      </li>
+
       {% endfor %}
     {% endfor %}
+
 
   </body>
   
