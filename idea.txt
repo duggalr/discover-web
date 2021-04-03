@@ -2,6 +2,7 @@
 A: (<— starting here...) 
 - “organizing the de-organized web; so much great information but it is so hard to find” 
   (both from passive search and active discovery method) 
+- "A platform for all your information… or rather, information you 'care' about or 'may care about'"
 
 - An AI that automatically tracks stuff that you like, whether it be blogs, etc. and starts recommending you articles from those sites, 
 or similar articles/domains/people ('discover an interesting website you never knew about')
@@ -49,6 +50,56 @@ Possible next steps: (take everything below with a grain of salt)
 ^ as mentioned above, this extension won't just be for bookmarks, I think it connects to the abstractive better information 
 discovery mechanisms & organization/presentation (latter is a bit less than the former)
   - having an extension column showing them there (possibly leveraging a similar PT-model?) would be interesting
+
+*Similarity idea is interesting but wouldn't we need types? (to help find/discover stuff on the web that I am interested in)
+  - similarity to SO questions or similarity to OS github repo? ie. is there some stuff where similarity doesn't make sense?
+    - An AI that can find similar content on the web; 
+      ie. My notes about thinking/building, the AI should be able to recommend notes.andymatuschak.org
+
+
+
+TODO: think and start below
+1. Instead of building a new text-editor for my personal website, I leverage my existing macOS notepad-editor; 
+  - I can chose which notes to publish to my personal website? 
+    - I feel I can leverage tabFS for something like this? (new interfacilitation between web/OS; much needed!)
+    (^the macOS text snippets are shown directly here as well)
+      ^ Just use the text folder from tabFS; we can just write the stuff in our notes & simply html converter  
+          - ie. '-' into list, bold into 'b', etc
+
+  ^Then, you can have AI learn the notes, sort, recommend, etc. (bunch of experimentation to be done here)
+    - Learning my bookmarks, organizing them and recommending other posts, domains?    
+      - automatic organization of my snippets by AI? (categorization of topics)
+    ^ honestly, follow/similarity can followup right after? 
+
+2. Follow: an AI can follow a particular website for an update (ie. a new blog post) and then, it can let me know 
+when a new blog post has been posted 
+- Alternative ways to do this: 
+    - RSS & Email Newsletter
+    - Both I believe are suboptimal, why? 
+    (rss, need a reader, every website needs its own rss-feed, old/outdated; newsletter is interesting as it is an automatic 'eventListener'
+    with email as the medium. The problem I think is email as the medium; Personally for me, I don’t use it; I end of subscribing to 
+    many newsletters only to unsubscribe or lose interest in them; also, never read them… but I may just be lazy; I think you could 
+    create intelligent AI-email software but I still think below approach is at least worth a try...)
+        - I think ‘scraping’ currently on the web is stupid; It is manual scraping done by the computer but you can have AI-based, 
+        ‘smart’ scraping done too? 
+            - ie. scrape only for blog posts or only for pictures of a particular kind across many websites
+            (much like what Diffbot did to create their knowledge graph)
+                - ^ this way, you don’t need to write new code to scrape new websites or new code to 
+                interact with different API’s; it is a generalized approach that can get better overtime 
+                (possibly some sort of a feedback loop) 
+                    - AI can be a ‘listener’, possibly visiting a website periodically every t days 
+                    (it can learn to estimate when a new post is likely based on previous posts or if this blog is inactive, etc; 
+                    can start with trivial visit a list of sites everyday) 
+                    - Price checker is an easy byproduct of ‘follow-generalization’: (Can abstract this to many avenues) 
+                        - ie. you could have an AI look at t-shirts of a specific kind or bikes of some kind across various 
+                        websites and it will let you know when it has found stuff
+
+                    ^ Twitter is another one (people I am interested in hearing from) but not a big fan of using up to the platform 
+                    (primary reason is twitter has a lot of idiots)
+
+
+
+
 
 
 

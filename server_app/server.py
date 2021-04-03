@@ -8,6 +8,7 @@ from flask import request, render_template, g, session, redirect, url_for, jsoni
 from functools import wraps
 import sqlite3
 from urllib.parse import urlparse
+import time
 
 
 app = flask.Flask(__name__)
@@ -48,33 +49,80 @@ def save_text():
   hostname = urlparse(url).netloc  # save because we will use hostname as titles with the saved text underneath;
   title = request.json['tabTitle']
   selected_text = request.json['selectedText']
-  sql_str = 'insert into savedText(url, hostname, title, selected_text) values (?, ?, ?, ?)' 
-  g.db.execute(sql_str, (url, hostname, title, selected_text))
+  created_date = time.time()
+  sql_str = 'insert into savedText(url, hostname, title, selected_text, created_date) values (?, ?, ?, ?, ?)' 
+  g.db.execute(sql_str, (url, hostname, title, selected_text, created_date))
   g.db.commit()
   return jsonify({'success': 'success'})
 
-@app.route('/', methods=["GET"])
+
+@app.route('/', methods=["GET", "POST"])
 def home():
   sql_str = 'select * from savedText'
   cur = g.db.execute(sql_str)
   rv = cur.fetchall()
+  
   di = {}
   for val in rv:
     di[val['hostname']] = []
 
+  li = []
   for val in rv:
-    li = di[val['hostname']]  
+    # li = di[val['hostname']]  
     # creating text fragment version (note: works only on chrome)
     url = val['url']
     selected_text = val['selected_text']
+    created_date = val['created_date']
 
     first_sentence = selected_text.split('. ')[0]  # obviously not 'bulletproof'; will adjust as errors come about    
     url = url + '#:~:text=' + first_sentence
 
-    li.append({'id': val['id'], 'title': val['title'], 'url': url, 'selected_text': selected_text})
-    di[val['hostname']] = li 
+    saved_text_id = val['id']
+    sql_str = "select * from savedNote where note_id=?" 
+    cur = g.db.execute(sql_str, (saved_text_id,))
+    rv = cur.fetchall()
 
-  return render_template('home.html', savedText=di)
+    notesRV = None
+    if len(rv) > 0:
+      print('notesRV:', rv)
+      notesRV = rv
+    li.append({'id': val['id'], 'hostname': val['hostname'], 'title': val['title'], 'url': url, 'selected_text': selected_text, 'notes': notesRV, 'created_date': created_date})
+ 
+  li = sorted(li, key=lambda k: k['created_date'], reverse=True)
+  final_di = {}
+  for dict in li:
+    hostname = dict['hostname']
+    if hostname in final_di:
+      old_li = final_di[hostname]
+      old_li.append(dict)
+      final_di[hostname] = old_li
+    else:
+      final_di[hostname] = [dict]
+
+  sql_str = 'select * from toRead'
+  cur = g.db.execute(sql_str)
+  to_read_rv = cur.fetchall()
+
+  if request.method == "POST":
+    if 'update_note' in request.form:
+      note = request.form['update_note']
+      note_id = request.form['update_note_id']
+      sql_str = 'update savedNote set text=?, where note_id=?' 
+      g.db.execute(sql_str, (note, note_id))
+      g.db.commit()
+      print('note updated:', note_id)
+      return redirect(url_for('home'))
+
+    else:
+      note = request.form['create_note']
+      note_id = request.form['create_note_id']
+      sql_str = 'insert into savedNote(note_id, text) values (?, ?, ?)' 
+      g.db.execute(sql_str, (note_id, note))
+      g.db.commit()
+      print('note saved:', note_id)
+      return redirect(url_for('home'))
+
+  return render_template('home.html', savedText=final_di, toRead=to_read_rv)
 
 @app.route('/delete_snippet/<int:post_id>', methods=["GET"])
 def delete_snippet(post_id):
@@ -87,16 +135,30 @@ def delete_snippet(post_id):
 if __name__ == '__main__':
   app.run()
 
-
 # export FLASK_APP=app.py
 # export FLASK_ENV=development
 # flask run
 # flask run -h localhost -p 8000
 
-# TODO: 
-## design of database; # this will constantly change as we build out more features, etc. 
 
+# TODO: design of database; # this will constantly change as we build out more features, etc. 
+
+
+# create table toRead(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)
+# # alter table savedText add created_date real; 
 # CREATE TABLE savedText( id INTEGER PRIMARY KEY AUTOINCREMENT, url TEXT, hostname TEXT, title TEXT, selected_text TEXT);
+# CREATE TABLE savedNote( id INTEGER PRIMARY KEY AUTOINCREMENT, note_id INTEGER, text TEXT, FOREIGN KEY(note_id) REFERENCES savedText(note_id));
+
+#  sql_str = 'select * from savedText'
+#   cur = g.db.execute(sql_str)
+#   rv = cur.fetchall()
+#   for val in rv:
+#     created_date = time.time()
+#     sql_str = 'update savedText set created_date=? where id=?' 
+#     g.db.execute(sql_str, (created_date, val['id'], ))
+#     g.db.commit()
+
+
 
 # CREATE TABLE url( id INTEGER PRIMARY KEY AUTOINCREMENT, url_id INTEGER, title TEXT, url TEXT);
 # CREATE TABLE visitDetail( id INTEGER PRIMARY KEY AUTOINCREMENT, url_id INTEGER, visit_id INTEGER, referrer_visit_id INTEGER, visitTime REAL, transition_type TEXT, FOREIGN KEY(url_id) REFERENCES url(url_id) );
