@@ -18,85 +18,58 @@ or similar articles/domains/people ('discover an interesting website you never k
  
 (Abstractive thoughts:)
   - It will be like a youtube dashboard but for the whole web (very personalized to you)
-  
 
-TODO: For Bookmark Extension
-(progress along as we use it more as this will constantly adapt...)
-  - Need to add a toggle display for urls or maybe a different UI to better deal with all the urls
-    - ^Very soon, there will be a lot here and just having a ton of text as list might not be ideal (will need to experiment)
-
-Possible next steps: (take everything below with a grain of salt) 
-- Next thing, add a follow feature for sites; the extension/dashboard will show notifications when new content has been posted on the site
-  - ie. extension will have a button that says 'follow site' 
-    ^ need to most likely check the type of website before allowing this 
-  (An AI assistant that can send notifications is a first ‘good’ step as right now, many rely on emails and emails are 
-  obviously a sub-optimal approach)
-
-  - Good digression: 
-    - Build a picture extractors (bike pictures) and showing the prices (& having notifications; 
-    these same notification-functionality can be abstracted to blogs, etc.); instead of me constantly checking 
-
-- Third thing is, scraping the web from our sites (leveraging history/bookmarks & above code...)
-  - Now this web crawler should be 'intelligent' to some degree; ** Web-scraper should be intelligent too! 
-    - ^ since we are limited in space, should have prioritization-levels on what we should scrape, etc.         
-  - Scraper will allow discovery of new sites / content (recommendation-engine)
-    - based on my history, bookmarks (including above), etc.; 
-  - Can possibly use this to build a more intelligent/personalized retrieval-engine as well 
-    - merger between global & personalized pagerank?
-      - how effective would this be? we have the attributes from the extension
-      https://developer.chrome.com/docs/extensions/reference/history/#type-TransitionType
-
-
-^ as mentioned above, this extension won't just be for bookmarks, I think it connects to the abstractive better information 
-discovery mechanisms & organization/presentation (latter is a bit less than the former)
-  - having an extension column showing them there (possibly leveraging a similar PT-model?) would be interesting
-
-*Similarity idea is interesting but wouldn't we need types? (to help find/discover stuff on the web that I am interested in)
-  - similarity to SO questions or similarity to OS github repo? ie. is there some stuff where similarity doesn't make sense?
-    - An AI that can find similar content on the web; 
-      ie. My notes about thinking/building, the AI should be able to recommend notes.andymatuschak.org
+Right now, it's just building out various things but I think these wil all interfacilitate together really soon; 
+  - Can't see how this will all come together but I have a feeling there will interfacilitation here...
 
 
 
-TODO: think and start below
-1. Instead of building a new text-editor for my personal website, I leverage my existing macOS notepad-editor; 
-  - I can chose which notes to publish to my personal website? 
-    - I feel I can leverage tabFS for something like this? (new interfacilitation between web/OS; much needed!)
-    (^the macOS text snippets are shown directly here as well)
-      ^ Just use the text folder from tabFS; we can just write the stuff in our notes & simply html converter  
-          - ie. '-' into list, bold into 'b', etc
 
-  ^Then, you can have AI learn the notes, sort, recommend, etc. (bunch of experimentation to be done here)
-    - Learning my bookmarks, organizing them and recommending other posts, domains?    
-      - automatic organization of my snippets by AI? (categorization of topics)
-    ^ honestly, follow/similarity can followup right after? 
 
-2. Follow: an AI can follow a particular website for an update (ie. a new blog post) and then, it can let me know 
-when a new blog post has been posted 
-- Alternative ways to do this: 
+TODO: 
+- Follow: an AI can follow a particular website for an update (ie. a new blog post) and then, it can let me know 
+when a new blog post has been posted (start with just blogs)
+  - Alternative ways to do this: 
     - RSS & Email Newsletter
     - Both I believe are suboptimal, why? 
     (rss, need a reader, every website needs its own rss-feed, old/outdated; newsletter is interesting as it is an automatic 'eventListener'
     with email as the medium. The problem I think is email as the medium; Personally for me, I don’t use it; I end of subscribing to 
-    many newsletters only to unsubscribe or lose interest in them; also, never read them… but I may just be lazy; I think you could 
+    many newsletters only to unsubscribe or lose interest in them; also, never read them… but I may just be lazy; I think one could 
     create intelligent AI-email software but I still think below approach is at least worth a try...)
-        - I think ‘scraping’ currently on the web is stupid; It is manual scraping done by the computer but you can have AI-based, 
-        ‘smart’ scraping done too? 
-            - ie. scrape only for blog posts or only for pictures of a particular kind across many websites
-            (much like what Diffbot did to create their knowledge graph)
-                - ^ this way, you don’t need to write new code to scrape new websites or new code to 
-                interact with different API’s; it is a generalized approach that can get better overtime 
-                (possibly some sort of a feedback loop) 
-                    - AI can be a ‘listener’, possibly visiting a website periodically every t days 
-                    (it can learn to estimate when a new post is likely based on previous posts or if this blog is inactive, etc; 
-                    can start with trivial visit a list of sites everyday) 
-                    - Price checker is an easy byproduct of ‘follow-generalization’: (Can abstract this to many avenues) 
-                        - ie. you could have an AI look at t-shirts of a specific kind or bikes of some kind across various 
-                        websites and it will let you know when it has found stuff
 
-                    ^ Twitter is another one (people I am interested in hearing from) but not a big fan of using up to the platform 
-                    (primary reason is twitter has a lot of idiots)
+^Start with just blogs (have a list of blogs that I would like to follow; ie. right-click extension and "follow website"):
+  - The AI should first be able to recognize this is a "personal blogging-type website" and then it should be able to recognize that a 
+  new post has arrived; it would be cool if you can also have AI entity link the person who created the website with the site (creating 
+  a knowledge graph; but not necessarily an explicit knowledge graph or rather, probably not using explicit knowledge-graph construction
+  approaches)
+    - Start first with AI being able to extract the blog-posts (not classification of website)
+      - ie. give it balaji's site, it should be able to extract all posts, with their title's, article, date, etc. 
+        - ^essentially just a "smart or more generalized scraper" rather than using rules...
 
+  - **Good digression: 
+    - Build a picture extractors (bike pictures) using above approach and showing the prices (& having notifications using above); 
+      - Better than me having to constantly check and it's a waste of time to check in various sites, etc. 
+
+
+Bookmarks TODO: 
+  - Need to add search on my text snippets 
+    - need an AI to organize my text snippets (grouping? experiment here)
+  - Add hostname text-snippet toggle 
+
+Related:
+  Then, you can have AI learn the notes, sort, recommend, etc. (bunch of experimentation to be done here)
+    - Learning my bookmarks, organizing them and recommending other posts, domains?    
+      - automatic organization of my snippets by AI? (categorization of topics)
+    ^ honestly, follow/similarity can followup right after? 
+    - The AI can learn from all my personal-data (that I choose to give it) for recommendations, retrieval, etc. 
+
+  *Similarity idea is interesting but wouldn't we need types? (to help find/discover stuff on the web that I am interested in)
+    - similarity to SO questions or similarity to OS github repo? ie. is there some stuff where similarity doesn't make sense?
+      - An AI that can find similar content on the web; 
+        ie. My notes about thinking/building, the AI should be able to recommend the notes from notes.andymatuschak.org
+
+  *Dependent on project I am working on, the AI can recommend me the books, people, retrieval links, etc. that way?
+  
 
 
 
