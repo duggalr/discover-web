@@ -135,15 +135,16 @@ def delete_snippet(post_id):
 if __name__ == '__main__':
   app.run()
 
-# export FLASK_APP=app.py
+# export FLASK_APP=server.py
 # export FLASK_ENV=development
-# flask run
 # flask run -h localhost -p 8000
 
 
 # TODO: design of database; # this will constantly change as we build out more features, etc. 
 
-
+# link, publish_date, title, cleaned_text
+# create table domainFollow(id INTEGER PRIMARY KEY AUTOINCREMENT, url TEXT)
+# create table article(id INTEGER PRIMARY KEY AUTOINCREMENT, url TEXT, date_published REAL, title TEXT, cleaned_text TEXT, FOREIGN KEY(url) REFERENCES domainFollow(url))
 # create table toRead(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)
 # # alter table savedText add created_date real; 
 # CREATE TABLE savedText( id INTEGER PRIMARY KEY AUTOINCREMENT, url TEXT, hostname TEXT, title TEXT, selected_text TEXT);
