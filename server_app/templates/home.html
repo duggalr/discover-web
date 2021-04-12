@@ -8,11 +8,23 @@
 
     <h2>Saved Categories:</h2>
 
-    {% for category in categories %}
-      <h3>&nbsp;&nbsp;{{ category }}</h3>
+    {% if categories|length == 0 %}
+    
+      <h3>&nbsp;No categories</h3>
+      <br/>
+
+    {% else %}
+
+      {% for category in categories %}
+      <h3>&nbsp;{{ category }} 
+        <button id="{{ category }}" onclick="toggleSnippets(this)">Toggle saved snippets</button>
+        <button id="{{ category }}" onclick="deleteCategory(this)">Delete Category</button> 
+      </h3>
         
+        <div id="{{ category }}_links" style='display: none; margin-left: 1em;'>
+
           {% for k in categories[category] %}
-            <h4>{{ k }}</h4>
+          <h4>{{ k }}</h4>
             {% for d in categories[category][k] %}
               <li>
                 <a href='{{ d.url }}'>{{ d.title }}</a>&nbsp;&nbsp;&nbsp;<a href="/delete_snippet/{{ d.id }}">Delete</a>
@@ -22,14 +34,19 @@
                 </ul> 
       
               </li>  
+            {% endfor %}
           {% endfor %}
-        {% endfor %}
 
         </div>
-    {% endfor %}
+
+     {% endfor %}
+
+     <br/>
+     <br/>
+
+    {% endif %}
+
     
-    <br/>
-    <br/>
 
     <h2>Saved Bookmarks:</h2>
 
@@ -51,18 +68,24 @@
     </form>
           
     {% for k in savedText %}
-      <h4>{{ k }}</h4>
-      {% for d in savedText[k] %}          
-        <li>
-          <a href='{{ d.url }}'>{{ d.title }}</a>&nbsp;&nbsp;&nbsp;<a href="/delete_snippet/{{ d.id }}">Delete</a>
+      <h4>{{ k }} <button id="{{ k }}" onclick="toggleSnippets(this)">Toggle saved snippets</button> </h4>
 
-          <ul>
-            <li><p><input type="checkbox" id="text" name="text" value="{{ d.id }}"><label for="text"> {{ d.selected_text }}</label></p></li>
-          </ul> 
+      <div id="{{ k }}_links" style='margin-left: 1em;'>
+      
+        {% for d in savedText[k] %}          
+          <li>
+            <a href='{{ d.url }}'>{{ d.title }}</a>&nbsp;&nbsp;&nbsp;<a href="/delete_snippet/{{ d.id }}">Delete</a>
 
-        </li>
+            <ul>
+              <li><p><input type="checkbox" id="text" name="text" value="{{ d.id }}"><label for="text"> {{ d.selected_text }}</label></p></li>
+            </ul> 
 
-      {% endfor %}
+          </li>
+        {% endfor %}
+
+      </div>
+
+
     {% endfor %}
 
     <script>
@@ -104,7 +127,36 @@
         
       }
 
-      
+      function toggleSnippets(t) {        
+        var categoryVal = t.id
+        var div = document.getElementById(categoryVal+'_links')
+        if (div.style.display == 'none') {
+          div.style.display = 'block'
+        } else {
+          div.style.display = 'none'
+        }
+      }
+
+      function deleteCategory(t) {
+        var categoryVal = t.id
+        jsonRV = {'category': categoryVal}
+
+        $.ajax({
+          type : 'POST',
+          url : "{{url_for('delete_category')}}",
+          contentType: 'application/json;charset=UTF-8',
+          data : JSON.stringify(jsonRV),
+          success: function(result) {
+            console.log(result);
+            location.reload();
+            return false;
+          }
+        });
+
+
+      }
+
+
     </script>
 
   </body>

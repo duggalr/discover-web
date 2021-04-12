@@ -94,50 +94,70 @@ def create_main_dict(rv):
 
   return final_return_dict
 
+def create_category_main_dict(rows):
+  di = {}
+  li = []    
+  for row in rows:
+    saved_text_id = row['saved_text_id']
+    sql_str = 'select * from savedUrl where saved_text_id=?'
+    cur = g.db.execute(sql_str, (saved_text_id,))
+    url_rows = cur.fetchall()
+
+    for val in url_rows:
+      di[val['hostname']] = []
+
+    for val in url_rows:
+      url = val['url']
+      sql_str = "select saved_text, created_date from savedText where id=? order by created_date desc" 
+      cur = g.db.execute(sql_str, (saved_text_id,))
+      saved_text_rv = cur.fetchall()
+      if len(saved_text_rv) > 0:
+        selected_text = saved_text_rv[0][0]
+        created_date = saved_text_rv[0][1]
+      else:
+        selected_text = ''
+        created_date = ''
+        
+      first_sentence = selected_text.split('. ')[0]  # obviously not 'bulletproof'; will adjust as errors come about    
+      url = url + '#:~:text=' + first_sentence
+
+      li.append({'id': val['id'], 'hostname': val['hostname'], 'title': val['title'], 'url': url, 'selected_text': selected_text, 'created_date': created_date})
+
+  final_di = {}
+  for dict in li:
+    hostname = dict['hostname']
+    if hostname in final_di:
+      old_li = final_di[hostname]
+      old_li.append(dict)
+      final_di[hostname] = old_li
+    else:
+      final_di[hostname] = [dict]
+
+  return final_di
+
 
 @app.route('/', methods=["GET", "POST"])
 def home():
+
+  # don't display ones that exist in categories
   sql_str = 'select * from savedUrl order by created_date desc'
   cur = g.db.execute(sql_str)
-  rv = cur.fetchall()
+  tmp_rv = cur.fetchall()
   
-  # TODO: abstract this (the common parts in both categories and others)
+  sql_str = 'select * from savedCategory'
+  cur = g.db.execute(sql_str)
+  category_rv = cur.fetchall()
+  list_of_ids = []
+  for val in category_rv:
+    list_of_ids.append(val['saved_text_id'])
 
-  di = {}
-  for val in rv:
-    di[val['hostname']] = []
-
-  li = []
-  for val in rv:
-    # li = di[val['hostname']]  
-    # creating text fragment version (note: works only on chrome)
-    url = val['url']
-
+  main_rv = []
+  for val in tmp_rv:
     saved_text_id = val['saved_text_id']
-    sql_str = "select saved_text, created_date from savedText where id=? order by created_date desc" 
-    cur = g.db.execute(sql_str, (saved_text_id,))
-    rv = cur.fetchall()
-    if len(rv) > 0:
-      selected_text = rv[0][0]
-      created_date = rv[0][1]
-    else:
-      selected_text = ''
-      created_date = ''
-      
-    first_sentence = selected_text.split('. ')[0]  # obviously not 'bulletproof'; will adjust as errors come about    
-    url = url + '#:~:text=' + first_sentence
+    if saved_text_id not in list_of_ids:
+      main_rv.append(val)
 
-    li.append({'id': val['id'], 'hostname': val['hostname'], 'title': val['title'], 'url': url, 'selected_text': selected_text, 'created_date': created_date})
- 
-  final_other_bookmarks_dict = {}
-  for dict in li:
-    hostname = dict['hostname']
-    if hostname in final_other_bookmarks_dict:
-      old_li = final_other_bookmarks_dict[hostname]
-      old_li.append(dict)
-      final_other_bookmarks_dict[hostname] = old_li
-    else:
-      final_other_bookmarks_dict[hostname] = [dict]
+  final_other_bookmarks_dict = create_main_dict(main_rv)
 
   sql_str = "select distinct category from savedCategory order by created_date desc" 
   cur = g.db.execute(sql_str)
@@ -153,45 +173,7 @@ def home():
     cur = g.db.execute(sql_str, (category_row['category'],))
     rows = cur.fetchall()
 
-    di = {}
-    li = []    
-    for row in rows:
-      saved_text_id = row['saved_text_id']
-      sql_str = 'select * from savedUrl where saved_text_id=?'
-      cur = g.db.execute(sql_str, (saved_text_id,))
-
-      url_rows = cur.fetchall()
-
-      for val in url_rows:
-        di[val['hostname']] = []
-
-      for val in url_rows:
-        url = val['url']
-        sql_str = "select saved_text, created_date from savedText where id=? order by created_date desc" 
-        cur = g.db.execute(sql_str, (saved_text_id,))
-        saved_text_rv = cur.fetchall()
-        if len(saved_text_rv) > 0:
-          selected_text = saved_text_rv[0][0]
-          created_date = saved_text_rv[0][1]
-        else:
-          selected_text = ''
-          created_date = ''
-          
-        first_sentence = selected_text.split('. ')[0]  # obviously not 'bulletproof'; will adjust as errors come about    
-        url = url + '#:~:text=' + first_sentence
-
-        li.append({'id': val['id'], 'hostname': val['hostname'], 'title': val['title'], 'url': url, 'selected_text': selected_text, 'created_date': created_date})
-
-    final_di = {}
-    for dict in li:
-      hostname = dict['hostname']
-      if hostname in final_di:
-        old_li = final_di[hostname]
-        old_li.append(dict)
-        final_di[hostname] = old_li
-      else:
-        final_di[hostname] = [dict]
-
+    final_di = create_category_main_dict(rows)
     final_category_di[category_row['category']] = final_di 
     
   return render_template('home.html', savedText=final_other_bookmarks_dict, categories=final_category_di)
@@ -237,6 +219,13 @@ def add_category():
         g.db.execute(sql_str, (new_category_value, saved_text_id, created_date))
         g.db.commit()
 
+  return jsonify({'success': True})
+
+
+@app.route('/delete_category', methods=["POST"])
+def delete_category():
+  g.db.execute('delete from savedCategory where category = ?' , (request.json['category'],) )
+  g.db.commit()
   return jsonify({'success': True})
 
 
