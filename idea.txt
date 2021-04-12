@@ -50,11 +50,20 @@ Thoughts/Stuff to explore:
     - This would be extremely helpful in general but would be great in recommendation
 
 
-Bookmarks TODO:
-  - Leverage my saved snippets from various domains to start recommending new content from those domains 
-  - Add simple search over text snippets 
+
+TODO: Building your own ‘ontology’ 
+  - On right click, show 'side-bar' with corresponding features
+    - Add categories to my text snippets (each snippet can have a note next to it)
+  - In UI:
+    - Add linking between snippets as well (whether apart of same category or different)
+      - each link can have a note next to it 
+
+  - Add simple search over text snippets
+  - Figure out how to add my macOS notes, pdf files as links as well (** this is important)
+
   
-  
+
+
 
 
 
