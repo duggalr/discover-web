@@ -3,3 +3,5 @@ server_app/__pycache__
 to_be_used_later
 .vscode
 scripts
+.DS_Store
+
