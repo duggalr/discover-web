@@ -1,12 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   </head>
 
   <body>
 
+    <h2>Saved Categories:</h2>
+
+    {% for category in categories %}
+      <h3>&nbsp;&nbsp;{{ category }}</h3>
+        
+          {% for k in categories[category] %}
+            <h4>{{ k }}</h4>
+            {% for d in categories[category][k] %}
+              <li>
+                <a href='{{ d.url }}'>{{ d.title }}</a>&nbsp;&nbsp;&nbsp;<a href="/delete_snippet/{{ d.id }}">Delete</a>
+      
+                <ul>
+                  <li><p><input type="checkbox" id="text" name="text" value="{{ d.id }}"><label for="text"> {{ d.selected_text }}</label></p></li>
+                </ul> 
+      
+              </li>  
+          {% endfor %}
+        {% endfor %}
+
+        </div>
+    {% endfor %}
+    
+    <br/>
+    <br/>
+
     <h2>Saved Bookmarks:</h2>
 
+    <button onclick="displayCategoryForm()">Add-to/Create Category</button>    
+
+    <form method="POST" id='category_form'>
+      <label for="category">Choose a category:</label>
+
+      <select name="category_selection" id="category_selection">
+        <option value="">None</option>
+        {% for category in categories %}
+          <option value="{{ category }}">{{ category }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="new_category">New Category:</label>
+      <input type="text" id="new_category" name="new_category"><br><br>
+      <input type="button" value="Submit" onclick="categoryFormSubmit()">
+    </form>
+          
     {% for k in savedText %}
       <h4>{{ k }}</h4>
       {% for d in savedText[k] %}          
@@ -14,37 +57,53 @@
           <a href='{{ d.url }}'>{{ d.title }}</a>&nbsp;&nbsp;&nbsp;<a href="/delete_snippet/{{ d.id }}">Delete</a>
 
           <ul>
-            <li><p>{{ d.selected_text }}</p></li>
-          </ul>
+            <li><p><input type="checkbox" id="text" name="text" value="{{ d.id }}"><label for="text"> {{ d.selected_text }}</label></p></li>
+          </ul> 
 
         </li>
 
       {% endfor %}
     {% endfor %}
 
-
     <script>
 
-      var formElements = document.getElementsByTagName('form')
+      document.getElementById('category_form').style.display = "none";
 
-      for (i=0; i<=formElements.length-1; i++){
-        formElements[i].style.display = "none";
+      function displayCategoryForm() { 
+          document.getElementById('category_form').style.display = "block";
       }
 
-      function displayForm(obj_id) {
-        console.log(obj_id)
-        document.getElementById(obj_id).style.display = "block";        
+      function categoryFormSubmit() {
+        var checkboxValues = []
+        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+        for (var i = 0; i < checkboxes.length; i++) {
+          checkboxValues.push(checkboxes[i].value)        
+        }
+        console.log(checkboxValues)
+ 
+        var category_selection = document.getElementById("category_selection");
+        var category_selection_str = category_selection.value;
+        var new_category_value = document.getElementById('new_category').value
+
+        var jsonRV = {}
+        jsonRV['checkbox_values'] = checkboxValues
+        jsonRV['category_selection_str'] = category_selection_str
+        jsonRV['new_category_value'] = new_category_value
+
+        $.ajax({
+          type : 'POST',
+          url : "{{url_for('add_category')}}",
+          contentType: 'application/json;charset=UTF-8',
+          data : JSON.stringify(jsonRV),
+          success: function(result) {
+            console.log(result);
+            location.reload();
+            return false;
+          }
+        });
+        
       }
 
-      function toggleNote(id) {
-        var div = document.getElementById(id)
-        if (div.style.display == 'none') {
-          div.style.display = 'block'
-        } else {
-          div.style.display = 'none'
-        }        
-      }
-      // TODO: sort order by createDate
       
     </script>
 
