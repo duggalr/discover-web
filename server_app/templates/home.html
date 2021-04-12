@@ -7,54 +7,21 @@
 
     <h2>Saved Bookmarks:</h2>
 
-    <!-- <ul>
-
-      {% for k in savedText %}
-        - {{ k }} 
-        <br/>
-      {% endfor %}
-      
-    </ul> -->
-    
     {% for k in savedText %}
+      <h4>{{ k }}</h4>
       {% for d in savedText[k] %}          
         <li>
           <a href='{{ d.url }}'>{{ d.title }}</a>&nbsp;&nbsp;&nbsp;<a href="/delete_snippet/{{ d.id }}">Delete</a>
+
           <ul>
             <li><p>{{ d.selected_text }}</p></li>
           </ul>
-          {% if d.notes is not none %}
-            <button id='show-note' onclick="toggleNote('bookmark_note_{{ d.id }}')">Toggle Note</button>
-            <div id='bookmark_note_{{ d.id }}' style='display: none;'>
-                {{ d.notes.1.text }}
-            </div>
-            &nbsp;<button onclick="displayForm('{{d.id}}')">Update note</button>
-            <form id="{{ d.id }}" method='POST' name='update_note'>
-              <label for="update_note">Add a note:</label><br>
-              <textarea id="update_note" name="update_note" rows="4" cols="50">{{ d.notes.1.text }}</textarea>
-              <input type="hidden" id="update_note_id" name="update_note_id" value="{{ d.id }}">
-              <input type="submit" value="Submit">          
-            </form>
-          {% else %}
-            &nbsp;<button onclick="displayForm('{{d.id}}')">Add a note</button>
-            <form id="{{ d.id }}" method='POST' name='create_note'>
-              <label for="create_note">Add a note:</label><br>
-              <textarea id="create_note" name="create_note" rows="4" cols="50"></textarea>
-              <input type="hidden" id="create_note_id" name="create_note_id" value="{{ d.id }}">
-              <input type="submit" value="Submit">          
-            </form>
-          {% endif %}
 
         </li>
-        <br/>
 
-        {% endfor %}
       {% endfor %}
+    {% endfor %}
 
-      <!-- <h4>To Read:</h4>
-      {% for val in toRead %}
-        <li>{{val.text}}</li>
-      {% endfor %} -->
 
     <script>
 
